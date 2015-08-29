@@ -1,6 +1,7 @@
 from selenium import webdriver
 import xlrd
 import time
+from selenium.webdriver.common.action_chains import ActionChains
 
 def loginToFlipkart(driver):
     
@@ -19,9 +20,12 @@ def loginToFlipkart(driver):
     driver.find_element_by_css_selector(".submit-btn.login-btn.btn").click()
     
     time.sleep(5)
-    
-    return True
-
+    #
+    # if (driver.find_element_by_xpath("//*[@id='fk-mainhead-id']/div[1]/div/div[2]/div[1]/ul/li[7]/a").get):
+    #     print("Hi there")
+    #     return True
+    # else:
+    #     return False
 
 def searchProduct(driver):
     
@@ -32,15 +36,13 @@ def searchProduct(driver):
     searchValue = sheet.cell(1,1).value
     
     driver.find_element_by_css_selector("#fk-top-search-box").send_keys(searchValue)
-    driver.find_element_by_css_selector(".search-bar-submit.fk-font-13.fk-font-bold").click(
-                                                                                            )
-
-    
+    driver.find_element_by_css_selector(".search-bar-submit.fk-font-13.fk-font-bold").click()
 
 
+def logoutFlipkart(driver):
 
-
-
-                                              
-
-    
+    hover = ActionChains(driver).move_to_element(driver.find_element_by_xpath("//*[@id='fk-mainhead-id']/div[1]/div/div[2]/div[1]/ul/li[7]/a"))
+    hover.perform()
+    driver.find_element_by_partial_link_text("Logout").click()
+    driver.quit()
+    #print(driver.find_element_by_xpath("//*[@id='fk-mainhead-id']/div[1]/div/div[2]/div[1]/ul/li[7]/a").is_displayed())

@@ -11,15 +11,13 @@ wbook = xlrd.open_workbook(file_location)
 sheet=wbook.sheet_by_name("Driver")
 
 for i in range(1,sheet.nrows):
-    driver = webdriver.Firefox()    
-    for j in range(1,sheet.ncols):      
-        if sheet.cell(i,j).value !="": 
-            exec("result1=FirstTest."+sheet.cell(i,j).value+"(driver)")
-    
+    execute_Flag = sheet.cell(i,1).value
+    if execute_Flag:
 
+        driver = webdriver.Firefox()
 
-#result1=eval("FirstTest.loginToFlipkart()")
-
-#print (result1)
+        for j in range(1,sheet.ncols):
+            if sheet.cell(i,j).value !="":
+                eval("FirstTest."+sheet.cell(i,j).value+"(driver)")
 
 
